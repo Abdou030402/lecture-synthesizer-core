@@ -1,0 +1,16 @@
+<speak>
+Good morning, class. Today we're going to explore the fascinating world of computers. And what better place to start than with the very definition of a computer? According to our notes, a computer is a general-purpose device that can be programmed to carry out a set of arithmetic or logical operations automatically. Now, let me break this down for you.
+
+<break time="1s"/>
+A computer is not just a tool that can perform one specific task; it's a device that can be reprogrammed to solve multiple problems. This is what makes computers so incredibly powerful and versatile. They can be used for everything from simple calculations to complex scientific simulations, and even artistic creations.
+
+<emphasis level="moderate">The ability to change the sequence of operations allows computers to adapt to new situations and problems.</emphasis>
+In other words, because a computer's programming can be altered, it can solve more than one kind of problem. This flexibility is what sets computers apart from other machines that are designed to perform a specific task.
+
+Now, let's take a step back in time. The first recorded use of the word "computer" dates back to 1613, when it referred to a person who performed calculations. But the concept of computers as we know them today didn't emerge until the 19th century.
+
+<prosody rate="slow">The development of modern computers was a gradual process that spanned several decades.</prosody>
+In fact, the first computer devices were conceived in the 19th century. These early machines were massive and cumbersome, but they laid the groundwork for the computers we use today.
+
+<emphasis level="strong">And that's exactly where we'll pick up next time: the evolution of computers throughout history.</emphasis>
+For now, let's just appreciate the incredible potential of these machines and the impact they've had on our world. Thank you for your attention, class.
