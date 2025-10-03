@@ -1,0 +1,9 @@
+.venv_ocr_craft/
+.venv_ocr_craft
+.venv_frontend/
+.venv_frontend
+.venv_ollama/
+.venv_ollama
+.venv_elevenlabs/
+.venv_elevenlabs
+.env

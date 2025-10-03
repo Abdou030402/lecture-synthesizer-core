@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Upload – AI-Powerd Lecture Synthesizer{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h2 style="margin:0 0 4px 0">Upload notes</h2>
+    <p class="lead">PDF or image</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="messages">
+          {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/" method="post" enctype="multipart/form-data">
+      <div class="input-row">
+        <input type="file" name="document" id="document"
+               accept="application/pdf,image/*" required
+               style="padding:10px; border:1px solid #d1d5db; border-radius:12px; background:#fff;">
+        <button type="submit" class="button">Generate Audio</button>
+      </div>
+      <small class="lead">Max 50 MB • Supported: PDF, PNG, JPG, JPEG, BMP, GIF, TIFF, WEBP</small>
+    </form>
+  </section>
+{% endblock %}

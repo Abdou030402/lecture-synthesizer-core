@@ -2,7 +2,8 @@ import requests
 import os
 import sys
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/")
+OLLAMA_URL = f"{OLLAMA_HOST}/api/generate"
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 try:

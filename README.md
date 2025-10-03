@@ -1,83 +1,64 @@
-# Lecture Synthesizer — Server Usage Guide
+# 🎓 Lecture Synthesizer — Web Frontend
 
-This tool turns handwritten or printed notes into spoken lectures using:
-1. **OCR** (CRAFT + TrOCR)  
-2. **LLM** (Ollama `llama3:8b`)  
-3. **TTS** (`chatterbox`, `elevenlabs_v2`, `dia`)
+This project converts **handwritten or printed lecture notes** into spoken audio lectures using an AI-powered pipeline:
 
-Everything is pre-configured on the server:  
-`abderrahmen@10.152.225.210`
+- **OCR**: CRAFT + TrOCR (extracts text from images or PDFs)  
+- **LLM**: Ollama (llama3:8b) to generate a natural lecture script  
+- **TTS**: ElevenLabs to produce high-quality narration audio  
 
----
+The tool runs as a **simple web application** so you can upload notes and directly download the generated audio from your browser.
 
-## ⚠️ Authentication
-
-- Each time you use `ssh` or `scp`, the **server password** will be requested.  
-- The password is shared privately.
+⚠️ **Access Requirement:**  
+You must be connected to the **MWN network (eduVPN)** to SSH into the server.  
+Use the provided credentials to log in.
 
 ---
 
-## 🔄 Workflow Overview
+## 🚀 Running the Frontend on the Server
 
-1. Upload your input document (PDF or image) to the server  
-2. Run `main.py` to generate lecture text + audio  
-3. Copy back only your results  
+⚠️ **Important:** You must use **two separate SSH sessions (two terminals)**:  
+one for running **Ollama** and one for running the **Flask web frontend**.
 
----
-
-## 📤 Step 1. Upload a Document
-
-**Supported formats:**  
-`.pdf, .png, .jpg, .jpeg, .bmp, .gif, .tiff, .webp`
-
-From your laptop:
-
-scp /path/to/lecture_notes.png abderrahmen@10.152.225.210:~/lecture-synthesizer/OCR_test_documents/
-
-You now pass this path as input: --input OCR_test_documents/lecture_notes.png
-
-## 🖥️ Step 2. Generate the Lecture
-SSH into the server:
+### 1. Start Ollama (first SSH session)
+```bash
 ssh abderrahmen@10.152.225.210
+# Enter the password (shared privately)
 cd ~/lecture-synthesizer
-source .venv_main/bin/activate
+ollama serve
+```
+Leave this running.
 
-Run with your file (choose a TTS engine):
-python main.py --input OCR_test_documents/lecture_notes.png --tts chatterbox
-python main.py --input OCR_test_documents/lecture_notes.png --tts elevenlabs_v2
-python main.py --input OCR_test_documents/lecture_notes.png --tts dia
-
-## 📥 Step 3. Copy Back Your Output
-Output names are based on your input filename (BASE = filename without extension).
-
-Audio files:
-Final_Output/{BASE}_chatterbox.wav
-Final_Output/{BASE}_elevenlabs_v2.mp3
-Final_Output/{BASE}_dia.wav
-(only elevenlabs output is .mp3)
-
-Lecture text:
-step_outputs/llm_outputs/{BASE}_llama3-8b_{TTS}.txt
-
-From your laptop:
-mkdir -p ~/Lecture_outputs
-BASE=lecture_notes
-
-# Example: chatterbox
-scp abderrahmen@10.152.225.210:~/lecture-synthesizer/Final_Output/${BASE}_chatterbox.wav ~/Lecture_outputs/
-scp abderrahmen@10.152.225.210:~/lecture-synthesizer/step_outputs/llm_outputs/${BASE}_llama3-8b_chatterbox.txt ~/Lecture_outputs/
-Only files matching your input are copied.
-
-📝 Example Workflow
-# Upload input (from local WSL/laptop)
-scp ~/Desktop/lecture_notes.png abderrahmen@10.152.225.210:~/lecture-synthesizer/OCR_test_documents/
-
-# Run on server (on remote SSH server)
+### 2. Start the Web Frontend (second SSH session)
+```bash
 ssh abderrahmen@10.152.225.210
+# Enter the password (shared privately)
 cd ~/lecture-synthesizer
-source .venv_main/bin/activate
-python main.py --input OCR_test_documents/lecture_notes.png --tts chatterbox
+source .venv_frontend/bin/activate
+python webapp/app.py
+```
 
-# Copy back results (from local WSL/laptop)
-scp abderrahmen@10.152.225.210:~/lecture-synthesizer/Final_Output/lecture_notes_chatterbox.wav ~/Lecture_outputs/
-scp abderrahmen@10.152.225.210:~/lecture-synthesizer/step_outputs/llm_outputs/lecture_notes_llama3-8b_chatterbox.txt ~/Lecture_outputs/
+By default, the frontend will run on port **5000**.  
+
+### 3. Open in your local browser
+```
+http://10.152.225.210:5000
+```
+
+---
+
+## 🌐 Using the App
+
+1. Upload a **PDF (1 page)** or an **image** of your lecture notes.  
+2. Wait while the pipeline processes it step by step:  
+   - OCR → LLM → TTS  
+3. Once finished:  
+   - ✅ Listen to the audio in the browser  
+   - 💾 Download the MP3 file  
+
+---
+
+## 📂 Output Files (saved on the server)
+
+- **Audio files:** `Final_Output/`  
+- **Generated lecture transcripts:** `step_outputs/llm_outputs/`  
+

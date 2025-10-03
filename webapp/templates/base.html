@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}AI-Powerd Lecture Synthesizer{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='img/tum.png') }}" alt="TUM">
+        <div class="divider"></div>
+        <img src="{{ url_for('static', filename='img/cit.jpeg') }}" alt="CIT">
+        <div class="divider"></div>
+        <img src="{{ url_for('static', filename='img/tower.png') }}" alt="TUM Tower">
+        <h1>AI-Powerd Lecture Synthesizer</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>
